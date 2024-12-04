@@ -3,8 +3,8 @@ extends Control
 @onready var disconnected_icon = preload("res://Icons/disconnected_icon.png")
 @onready var settings_window = preload("res://Pages/settings_page.tscn")
 @onready var mouse_drag_component = preload("res://Scenes/mouse_drag.tscn")
-@onready var main_song_title = $MainSongTitle
-@onready var album_art = $AlbumArt
+@onready var main_song_title = $VBoxContainer/MainSongTitle
+@onready var album_art = $VBoxContainer/AlbumArt/AlbumArt
 @onready var album_gradient = $AlbumGradient
 @onready var settings_overlay = $SettingsOverlay
 @onready var listen_on_spotify = $SettingsOverlay/ColorRect/MarginContainer2/ListenOnSpotifyButton
@@ -240,12 +240,12 @@ func generate_gradient(img: Image) -> GradientTexture2D:
 	var gradientValues = Gradient.new()
 	gradientValues.interpolation_mode = Gradient.GRADIENT_INTERPOLATE_CUBIC
 	var img_size = img.get_size()
-	gradientValues.offsets = [0, .33, .5, .66, .90, 1]
+	gradientValues.offsets = [0, .1, .3, .5, .7, 1]
 
 	var colors = []
 	for i in range(gradientValues.offsets.size() - 2):
 		var offset_value = gradientValues.offsets[i]
-		var pixel = img.get_pixel(img_size.x / 2, img_size.y * offset_value)
+		var pixel = img.get_pixel(img_size.x / 1.1, img_size.y * offset_value)
 		colors.append(pixel)
 
 	colors.append(Color.BLACK)

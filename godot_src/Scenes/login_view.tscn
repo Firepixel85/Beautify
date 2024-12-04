@@ -45,9 +45,9 @@ vertical_alignment = 1
 [node name="LoginToSpotifyButton" type="Button" parent="VBoxContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_wmn2v")
 theme_override_styles/hover = SubResource("StyleBoxFlat_wmn2v")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_wmn2v")
+theme_override_styles/normal = SubResource("StyleBoxFlat_wmn2v")
 text = "Login to Spotify"
 
 [node name="BittifyCodeLabel" type="Label" parent="VBoxContainer2/VBoxContainer"]

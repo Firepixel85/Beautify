@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dhnst0rrc37pj"]
+[gd_scene load_steps=3 format=3 uid="uid://dhnst0rrc37pj"]
 
 [ext_resource type="Script" path="res://Scripts/scrolling_word_component.gd" id="1_erthr"]
+[ext_resource type="FontFile" uid="uid://yksgjh3uwomr" path="res://Pages/SFPRODISPLAYBOLD.OTF" id="2_o116t"]
 
 [node name="scrolling_word_component" type="Control"]
 clip_contents = true
@@ -8,6 +9,8 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0
+offset_right = 198.0
+offset_bottom = 207.0
 grow_horizontal = 2
 script = ExtResource("1_erthr")
 
@@ -32,6 +35,8 @@ alignment = 1
 [node name="song_name" type="Label" parent="HBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_o116t")
+theme_override_font_sizes/font_size = 56
 text = "Hello There, what's the deal"
 horizontal_alignment = 1
 vertical_alignment = 1
