@@ -3,7 +3,8 @@ extends Control
 @onready var disconnected_icon = preload("res://Icons/disconnected_icon.png")
 @onready var settings_window = preload("res://Pages/settings_page.tscn")
 @onready var mouse_drag_component = preload("res://Scenes/mouse_drag.tscn")
-@onready var main_song_title = $VBoxContainer/MainSongTitle
+@onready var song_title = $VBoxContainer/SongTitle
+@onready var artist_name = $VBoxContainer/Control/ArtistName
 @onready var album_art = $VBoxContainer/AlbumArt/AlbumArt
 @onready var album_gradient = $AlbumGradient
 @onready var settings_overlay = $SettingsOverlay
@@ -37,7 +38,7 @@ var external_url_is_valid = false
 func _ready():
 	WindowFunctions.window_resizable(true, get_window())
 	SongManager.number_of_sessions += 1
-	main_song_title.change_text("Try Playing something from Spotify.")
+	song_title.change_text("Try Playing something from Spotify.")
 	access_token = get_access_token()
 	settings_overlay.modulate = Color.TRANSPARENT
 
@@ -98,32 +99,29 @@ func change_displayed_data(play_data: SongManager.PlayerData):
 		external_url_is_valid = true
 		current_song_url = data.external_url
 		var title = convert_textstyle_to_text(current_text_style, data)
-
-		main_song_title.change_text(title)
+		song_title.change_text(title.split("-")[0])
+		artist_name.change_text(title.split("-")[1])
 		WindowFunctions.change_window_title(title, get_window())
 		if old_link != current_song_url:
 			var texture = ImageTexture.new()
 			texture.set_image(data.img)
-
-			var gradient = generate_gradient(data.img)
-
-			transition_art_texture(album_gradient, "texture", gradient)
-
+			var gred = generate_gradient(data.img)
+			transition_art_texture(album_gradient, "texture", texture)
 			transition_art_texture(album_art, "texture", texture)
 
 			old_link = current_song_url
 		return
 
 	if play_data.player_state == SongManager.PlayerState.RATE_LIMIT_OVERLOADED:
-		main_song_title.change_text(
+		song_title.change_text(
 			"Servers are currently too busy. Attempting to retry connection..."
 		)
 
 	if play_data.player_state == SongManager.PlayerState.LOADING:
-		main_song_title.change_text("Loading Song...")
+		song_title.change_text("Loading Song...")
 
 	if play_data.player_state == SongManager.PlayerState.OFFLINE:
-		main_song_title.change_text("Not Connected. Attempting To Reconnect")
+		song_title.change_text("Not Connected. Attempting To Reconnect")
 		if album_art.texture != disconnected_icon:
 			transition_art_texture(album_art, "texture", disconnected_icon)
 
@@ -139,7 +137,7 @@ func change_displayed_data(play_data: SongManager.PlayerData):
 		return
 
 	if play_data.player_state == SongManager.PlayerState.NO_SPOTIFY_SESSIONS:
-		main_song_title.change_text("Try Playing something from Spotify.")
+		song_title.change_text("Try Playing something from Spotify.")
 		return
 
 
@@ -162,7 +160,7 @@ func on_settings_change(new_settings):
 	)
 	var speed_of_song = speed_binding.value
 
-	main_song_title.speed_of_text = speed_of_song
+	song_title.speed_of_text = speed_of_song
 
 	# Adaptive Gradient:
 	var adaptive_background = ApplicationStorage.filter_emit_data(
@@ -240,7 +238,7 @@ func generate_gradient(img: Image) -> GradientTexture2D:
 	var gradientValues = Gradient.new()
 	gradientValues.interpolation_mode = Gradient.GRADIENT_INTERPOLATE_CUBIC
 	var img_size = img.get_size()
-	gradientValues.offsets = [0, .1, .3, .5, .7, 1]
+	gradientValues.offsets = [.1, .1, .3, .5, .7, .9]
 
 	var colors = []
 	for i in range(gradientValues.offsets.size() - 2):

@@ -1,5 +1,5 @@
 extends Control
-
+@export var bold:bool
 @export var offset_between_text = 8.0
 @export var speed_of_text = 50
 @onready var song_name_label = $HBoxContainer/song_name
@@ -15,6 +15,9 @@ func change_text(text_to_change):
 
 
 func _ready():
+	if bold != true:
+		song_name_label.remove_theme_font_override("font")
+		duplicate_song_label.remove_theme_font_override("font")
 	duplicate_song_label.position.y = song_name_label.position.y
 	pass
 

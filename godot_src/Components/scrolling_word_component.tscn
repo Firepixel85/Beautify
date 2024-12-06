@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dhnst0rrc37pj"]
+[gd_scene load_steps=4 format=3 uid="uid://dhnst0rrc37pj"]
 
 [ext_resource type="Script" path="res://Scripts/scrolling_word_component.gd" id="1_erthr"]
+[ext_resource type="Theme" uid="uid://b0tncwc1xu0ep" path="res://Components/scrolling_word_component.tres" id="2_f8xoa"]
 [ext_resource type="FontFile" uid="uid://yksgjh3uwomr" path="res://Pages/SFPRODISPLAYBOLD.OTF" id="2_o116t"]
 
 [node name="scrolling_word_component" type="Control"]
@@ -20,6 +21,9 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 0
 offset_right = 212.0
 offset_bottom = 26.0
+theme = ExtResource("2_f8xoa")
+theme_override_fonts/font = ExtResource("2_o116t")
+theme_override_font_sizes/font_size = 56
 text = "Hello there, what's the deal"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -35,8 +39,9 @@ alignment = 1
 [node name="song_name" type="Label" parent="HBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+theme = ExtResource("2_f8xoa")
 theme_override_fonts/font = ExtResource("2_o116t")
 theme_override_font_sizes/font_size = 56
-text = "Hello There, what's the deal"
+text = "This is a test"
 horizontal_alignment = 1
 vertical_alignment = 1

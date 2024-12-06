@@ -1,4 +1,7 @@
-AnimationPlayer
+TextureRect
+Button
+HBoxContainer
 Control
+AnimationPlayer
 VBoxContainer
 MarginContainer

@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://b0tncwc1xu0ep"]
+
+[ext_resource type="FontFile" uid="uid://ctlkiuame1s3b" path="res://SFPRODISPLAYREGULAR.OTF" id="1_byuvm"]
+
+[resource]
+Label/fonts/font = ExtResource("1_byuvm")
