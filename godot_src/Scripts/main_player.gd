@@ -15,6 +15,9 @@ extends Control
 var current_song_url = ""
 enum { SUCCESS, LOADING, NOT_PLAYING }
 
+var song_name 
+var artist
+var album 
 
 func get_refresh_token():
 	return ApplicationStorage.get_data(ApplicationStorage.Settings.REFRESH_TOKEN)
@@ -76,9 +79,9 @@ func _ready():
 
 
 func convert_textstyle_to_text(textstyle: String, song_data: Dictionary) -> String:
-	var song_name = song_data.name
-	var artist = song_data.artist_name
-	var album = song_data.album_name
+	song_name = song_data.name
+	artist = song_data.artist_name
+	album = song_data.album_name
 
 	var final_string = (
 		textstyle
@@ -99,8 +102,8 @@ func change_displayed_data(play_data: SongManager.PlayerData):
 		external_url_is_valid = true
 		current_song_url = data.external_url
 		var title = convert_textstyle_to_text(current_text_style, data)
-		song_title.change_text(title.split("-")[0])
-		artist_name.change_text(title.split("-")[1])
+		song_title.change_text(song_name)
+		artist_name.change_text(artist)
 		WindowFunctions.change_window_title(title, get_window())
 		if old_link != current_song_url:
 			var texture = ImageTexture.new()

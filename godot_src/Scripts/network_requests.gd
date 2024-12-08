@@ -1,8 +1,9 @@
 extends Node
 
+
 var http_request_nodes = {}
 const CLIENT_ID = "9830ce611cad40ab98aaca36e75c0b79"
-
+const os = "MAC"
 @onready var base_url = (
 	"http://127.0.0.1:8787"
 	if OS.has_feature("debug")
@@ -30,7 +31,7 @@ class Result:
 		self.success = _success
 		self.result = _result
 
-
+var paused:bool = false
 func create_new_http_request_node(request_node_name: String) -> HTTPRequest:
 	if http_request_nodes.has(request_node_name):
 		return http_request_nodes[request_node_name]
@@ -70,10 +71,34 @@ func currently_playing_song(access_token: String) -> Result:
 	)
 
 	var res = await client.request_completed
-
+	
 	return check_for_sucess(res, false)
 
+func next_song(access_token: String):
+	var output = []
+	if os == "MAC":
+		var term = OS.execute("/bin/bash",["-c"]+["curl --request POST   --url https://api.spotify.com/v1/me/player/next   --header 'Authorization: Bearer "+access_token+"'"],output)
+	elif os == "WIN":
+		pass
+	currently_playing_song(access_token)
 
+func previous_song(access_token: String):
+	var output = []
+	if os == "MAC":
+		var term = OS.execute("/bin/bash",["-c"]+["curl --request POST   --url https://api.spotify.com/v1/me/player/previous   --header 'Authorization: Bearer "+access_token+"'"],output)
+	elif os == "WIN":
+		pass
+	currently_playing_song(access_token)
+
+func pause_play_song(access_token: String):
+	var output = []
+	if os == "MAC":
+		if paused == false:
+			var term = OS.execute("/bin/bash",["-c"]+["curl --request PUT   --url https://api.spotify.com/v1/me/player/pause   --header 'Authorization: Bearer "+access_token+"'"],output)
+		else:
+			var term = OS.execute("/bin/bash",["-c"]+["curl --request PUT   --url https://api.spotify.com/v1/me/player/play   --header 'Authorization: Bearer "+access_token+"'"],output)
+	elif os == "WIN":
+		pass
 func get_new_access_token(refresh_token) -> Result:
 	var client = create_new_http_request_node("new_access_token")
 	var url = "%s?refresh_token=%s" % [get_refresh_token_url, refresh_token]

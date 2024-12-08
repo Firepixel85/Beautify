@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://smcxgrhe0pd7"]
+[gd_scene load_steps=23 format=3 uid="uid://smcxgrhe0pd7"]
 
 [ext_resource type="Script" path="res://Scripts/main_player.gd" id="1_m6ui3"]
 [ext_resource type="Shader" path="res://Scenes/rounder.gdshader" id="2_fbidj"]
@@ -13,10 +13,11 @@
 [ext_resource type="Texture2D" uid="uid://bh25cpga742jc" path="res://Icons/settings_icon.png" id="5_1ierp"]
 [ext_resource type="Texture2D" uid="uid://cq3fnagbenfhg" path="res://Icons/Next.png" id="6_egiku"]
 [ext_resource type="Texture2D" uid="uid://f8b87l1ndoa1" path="res://Icons/close_icon.png" id="6_veeya"]
+[ext_resource type="Script" path="res://Scripts/Next Song.gd" id="10_ijvvw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8cgg2"]
 shader = ExtResource("2_litap")
-shader_parameter/strength = 2.0
+shader_parameter/strength = 3.0
 
 [sub_resource type="Animation" id="Animation_5ldhn"]
 length = 0.001
@@ -42,7 +43,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(5, 5)]
+"values": [Vector2(3, 3)]
 }
 
 [sub_resource type="Animation" id="Animation_8r4c2"]
@@ -90,6 +91,12 @@ shader_parameter/rounded_corner_bottom_right = true
 shader_parameter/width = 1.0
 shader_parameter/height = 1.0
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_71357"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e1lri"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jim48"]
+
 [node name="main_player" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -118,7 +125,7 @@ offset_right = 500.0
 offset_bottom = 400.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(5, 5)
+scale = Vector2(3, 3)
 pivot_offset = Vector2(500, 400)
 expand_mode = 1
 script = ExtResource("3_xnhf0")
@@ -129,115 +136,9 @@ libraries = {
 }
 script = ExtResource("4_axodg")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-z_index = 1
-layout_mode = 1
-anchors_preset = -1
-anchor_top = -0.362
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -0.399994
-offset_bottom = 291.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = -8
-alignment = 1
-
-[node name="AlbumArt" type="TextureRect" parent="VBoxContainer"]
-material = SubResource("ShaderMaterial_iwpo7")
-custom_minimum_size = Vector2(0, 1000)
-layout_mode = 2
-expand_mode = 1
-stretch_mode = 5
-
-[node name="AlbumArt" type="TextureRect" parent="VBoxContainer/AlbumArt"]
-material = SubResource("ShaderMaterial_iwpo7")
-custom_minimum_size = Vector2(0, 1000)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 180.0
-offset_bottom = 180.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.65, 0.65)
-pivot_offset = Vector2(500, 500)
-expand_mode = 1
-stretch_mode = 5
-
-[node name="SongTitle" parent="VBoxContainer" instance=ExtResource("2_xy54g")]
-custom_minimum_size = Vector2(0, 102.89)
-layout_mode = 2
-bold = true
-speed_of_text = 40
-
-[node name="Control" type="Control" parent="VBoxContainer"]
-custom_minimum_size = Vector2(1000, 103)
-layout_mode = 2
-
-[node name="ArtistName" parent="VBoxContainer/Control" instance=ExtResource("2_xy54g")]
-modulate = Color(0.529067, 0.529067, 0.529067, 1)
-custom_minimum_size = Vector2(0, 102.89)
-layout_mode = 1
-offset_right = 0.0
-offset_bottom = 102.89
-scale = Vector2(0.8, 0.8)
-pivot_offset = Vector2(500, 51)
-speed_of_text = 40
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 150)
-layout_mode = 2
-theme_override_constants/separation = 24
-alignment = 1
-
-[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer"]
-layout_mode = 2
-icon = ExtResource("4_bwndn")
-flat = true
-
-[node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer"]
-layout_mode = 2
-icon = ExtResource("5_1dse8")
-flat = true
-
-[node name="Button3" type="Button" parent="VBoxContainer/HBoxContainer"]
-layout_mode = 2
-icon = ExtResource("6_egiku")
-flat = true
-
-[node name="GradientBlocker" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
-
-[node name="MarginContainer" type="MarginContainer" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -50.0
-offset_right = 50.0
-grow_vertical = 0
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 6
-theme_override_constants/margin_bottom = 6
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
-layout_mode = 2
-texture = ExtResource("3_4g77f")
-expand_mode = 1
-
 [node name="SettingsOverlay" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 15
+layout_mode = 2
+anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -316,5 +217,121 @@ grow_vertical = 0
 texture_normal = ExtResource("6_veeya")
 ignore_texture_size = true
 stretch_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.362
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.399994
+offset_bottom = 291.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = -8
+alignment = 1
+
+[node name="AlbumArt" type="TextureRect" parent="VBoxContainer"]
+material = SubResource("ShaderMaterial_iwpo7")
+custom_minimum_size = Vector2(0, 1000)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AlbumArt" type="TextureRect" parent="VBoxContainer/AlbumArt"]
+material = SubResource("ShaderMaterial_iwpo7")
+custom_minimum_size = Vector2(0, 1000)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 180.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.65, 0.65)
+pivot_offset = Vector2(500, 500)
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SongTitle" parent="VBoxContainer" instance=ExtResource("2_xy54g")]
+custom_minimum_size = Vector2(0, 102.89)
+layout_mode = 2
+bold = true
+speed_of_text = 40
+
+[node name="Control" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(1000, 103)
+layout_mode = 2
+
+[node name="ArtistName" parent="VBoxContainer/Control" instance=ExtResource("2_xy54g")]
+modulate = Color(0.529067, 0.529067, 0.529067, 1)
+custom_minimum_size = Vector2(0, 102.89)
+layout_mode = 1
+offset_right = 0.0
+offset_bottom = 102.89
+scale = Vector2(0.8, 0.8)
+pivot_offset = Vector2(500, 51)
+speed_of_text = 40
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+z_index = 5
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_71357")
+icon = ExtResource("4_bwndn")
+flat = true
+script = ExtResource("10_ijvvw")
+oparation = "previous"
+
+[node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_e1lri")
+icon = ExtResource("5_1dse8")
+flat = true
+script = ExtResource("10_ijvvw")
+oparation = "pause_play"
+
+[node name="Button3" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jim48")
+icon = ExtResource("6_egiku")
+flat = true
+script = ExtResource("10_ijvvw")
+oparation = "next"
+
+[node name="GradientBlocker" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -50.0
+offset_right = 50.0
+grow_vertical = 0
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+texture = ExtResource("3_4g77f")
+expand_mode = 1
 
 [connection signal="animation_finished" from="AlbumGradient/AnimationPlayer" to="AlbumGradient/AnimationPlayer" method="_on_animation_finished"]

@@ -17,8 +17,7 @@ extends Control
 	},
 	"Text Settings" : {
 		"Text Overflow Scroll Speed" : SettingBoundComponent.new(dropdown_box_component, ApplicationStorage.Settings.SPEED_OF_SONG),
-		"Display Style (Updates within 3s)" : SettingBoundComponent.new(dropdown_box_component, ApplicationStorage.Settings.STYLE_OF_TEXT),
-		"Custom Display Style" : SettingBoundComponent.new(textedit_box_component, ApplicationStorage.Settings.CUSTOM_TEXT_STYLE)
+		
 	},
 	"Experimental Features" : {
 		"Borderless Player (Applies on Restart)" : SettingBoundComponent.new(check_box_component, ApplicationStorage.Settings.BORDERLESS),

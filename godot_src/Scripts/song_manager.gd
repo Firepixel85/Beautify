@@ -66,6 +66,13 @@ class PlayerData:
 		player_state = _player_state
 		data = _data
 
+func next_song():
+	NetworkRequests.next_song(access_token)
+func previous_song():
+	NetworkRequests.previous_song(access_token)
+func pause_play_song():
+	NetworkRequests.pause_play_song(access_token)
+	
 func _refresh_song() -> PlayerData:
 	
 

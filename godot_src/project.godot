@@ -33,6 +33,7 @@ SongManager="*res://Scripts/song_manager.gd"
 
 window/size/viewport_width=1000
 window/size/viewport_height=800
+window/size/initial_position_type=3
 window/size/window_width_override=2000
 window/size/window_height_override=1600
 window/subwindows/embed_subwindows=false

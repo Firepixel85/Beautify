@@ -1,6 +1,6 @@
 res://settings_page.tscn
 res://Scenes/rounder.gdshader
-res://Scenes/Blur.gdshader
+res://Scenes/Gaussian Blur.gdshader
 res://Scenes/main_player.gdshader
 res://Pages/login_page.tscn
 res://Pages/about_window.tscn
@@ -8,10 +8,6 @@ res://Scenes/about_window.tscn
 res://Scenes/login_view.tscn
 res://Scenes/main_player.tscn
 res://Components/scrolling_word_component.tscn
-res://Scenes/Blur.tscn
-res://Scenes/test.tscn
-res://Scenes/glass.gdshader
-res://Scripts/main_player.gd
-res://Scenes/album_gradient.gd
-res://Scenes/Gaussian Blur.gdshader
-res://Scripts/scrolling_word_component.gd
+res://Scripts/network_requests.gd
+res://Scripts/Next Song.gd
+res://Scripts/song_manager.gd
