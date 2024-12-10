@@ -3,4 +3,5 @@
 [ext_resource type="FontFile" uid="uid://ctlkiuame1s3b" path="res://SFPRODISPLAYREGULAR.OTF" id="1_byuvm"]
 
 [resource]
+Label/font_sizes/font_size = 42
 Label/fonts/font = ExtResource("1_byuvm")

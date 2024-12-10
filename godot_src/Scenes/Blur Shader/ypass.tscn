@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://bsd14wn8sjivp"]
+
+[ext_resource type="Shader" path="res://Shaders/Blur/ypass.gdshader" id="1_s8iql"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d3fbf"]
+shader = ExtResource("1_s8iql")
+shader_parameter/blur_radius = 8.0
+
+[sub_resource type="Gradient" id="Gradient_labt5"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_aw02r"]
+gradient = SubResource("Gradient_labt5")
+
+[node name="Sprite2D" type="Sprite2D"]
+z_index = 10
+material = SubResource("ShaderMaterial_d3fbf")
+scale = Vector2(1.018, 256)
+texture = SubResource("GradientTexture1D_aw02r")

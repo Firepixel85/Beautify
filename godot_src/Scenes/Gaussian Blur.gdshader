@@ -1,40 +1,38 @@
 shader_type canvas_item;
 
-#define pow2(x) (x * x)
-#define iResolution 1.0/SCREEN_PIXEL_SIZE
+uniform float blur_radius = 20.0; // Increased blur radius for more intensity
+uniform int blur_samples = 32;    // Increased number of samples for better quality
 
-uniform sampler2D iChannel0;
-uniform float strength : hint_range(0.0, 5.0, 0.1) = 1.0;
-const float pi = atan(1.0) * 4.0;
-const int samples = 35;
-const float sigma = float(samples) * 0.25;
+uniform sampler2D source_texture;
 
-float gaussian(vec2 i) {
-    return 1.0 / (2.0 * pi * pow2(sigma)) * exp(-((pow2(i.x) + pow2(i.y)) / (2.0 * pow2(sigma))));
-}
+void fragment() {
+    vec2 uv = UV; // Normalized texture coordinates
+    vec4 color = vec4(0.0); // Accumulated color
+    float total_weight = 0.0; // For normalizing the weights
 
-vec3 blur(sampler2D sp, vec2 uv, vec2 scale) {
-    vec3 col = vec3(0.0);
-    float accum = 0.0;
-    float weight;
-    vec2 offset;
+    // Precompute Gaussian weights for efficiency (approximated linearly)
+    float sigma = float(blur_samples) * 0.5;
+    float two_sigma_squared = 2.0 * sigma * sigma;
+    float normalization = 1.0 / (3.14159265 * two_sigma_squared);
 
-    for (int x = -samples / 2; x < samples / 2; ++x) {
-        for (int y = -samples / 2; y < samples / 2; ++y) {
-            offset = vec2(float(x), float(y));
-            weight = gaussian(offset);
-            col += texture(sp, uv + scale * offset).rgb * weight;
-            accum += weight;
+    // Dynamic clamping of sample count based on blur radius
+    int adjusted_samples = int(max(2.0, float(blur_samples) * (blur_radius / 10.0)));
+
+    for (int x = -adjusted_samples; x <= adjusted_samples; x++) {
+        for (int y = -adjusted_samples; y <= adjusted_samples; y++) {
+            vec2 offset = vec2(float(x), float(y)) * blur_radius / vec2(textureSize(source_texture, 0));
+
+            // Approximate weight using a stronger falloff for more intensity
+            float weight = max(0.0, 1.0 - float(x * x + y * y) / float(adjusted_samples * adjusted_samples));
+
+            // Amplify the weight for more intensity
+            weight *= 2.0;  // This increases the intensity of each sample
+
+            color += texture(source_texture, uv + offset) * weight;
+            total_weight += weight;
         }
     }
 
-    return col / accum;
-}
-
-void fragment() {
-    vec2 ps = vec2(1.0) / iResolution.xy * .000001 * strength;
-    vec2 uv = UV ;
-
-    COLOR.rgb = blur(iChannel0, uv, ps );
-    COLOR.a = 1.0;
+    // Normalize the final color
+    COLOR = color / total_weight;
 }

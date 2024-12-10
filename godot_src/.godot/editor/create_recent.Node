@@ -1,7 +1,10 @@
+SubViewport
+Sprite2D
 TextureRect
-Button
-HBoxContainer
 Control
+HBoxContainer
+MarginContainer
+Container
+Button
 AnimationPlayer
 VBoxContainer
-MarginContainer

@@ -1,23 +1,25 @@
-[gd_scene load_steps=23 format=3 uid="uid://smcxgrhe0pd7"]
+[gd_scene load_steps=24 format=3 uid="uid://smcxgrhe0pd7"]
 
 [ext_resource type="Script" path="res://Scripts/main_player.gd" id="1_m6ui3"]
 [ext_resource type="Shader" path="res://Scenes/rounder.gdshader" id="2_fbidj"]
-[ext_resource type="Shader" path="res://Scenes/Gaussian Blur.gdshader" id="2_litap"]
 [ext_resource type="PackedScene" uid="uid://dhnst0rrc37pj" path="res://Components/scrolling_word_component.tscn" id="2_xy54g"]
 [ext_resource type="Texture2D" uid="uid://pw0xg0y8arbg" path="res://Icons/Spotify_Icon_RGB_Green.png" id="3_4g77f"]
 [ext_resource type="Texture2D" uid="uid://fx1q7v4n6lia" path="res://Icons/Spotify_Expanded.png" id="3_cfax8"]
-[ext_resource type="Script" path="res://Scenes/album_gradient.gd" id="3_xnhf0"]
+[ext_resource type="Script" path="res://Scenes/album_gradient.gd" id="3_pisbi"]
 [ext_resource type="Script" path="res://Scenes/animation_player.gd" id="4_axodg"]
 [ext_resource type="Texture2D" uid="uid://duo7bqubruc3u" path="res://Icons/Previous.png" id="4_bwndn"]
 [ext_resource type="Texture2D" uid="uid://l6gyty3ecl7p" path="res://Icons/Pause.png" id="5_1dse8"]
 [ext_resource type="Texture2D" uid="uid://bh25cpga742jc" path="res://Icons/settings_icon.png" id="5_1ierp"]
 [ext_resource type="Texture2D" uid="uid://cq3fnagbenfhg" path="res://Icons/Next.png" id="6_egiku"]
 [ext_resource type="Texture2D" uid="uid://f8b87l1ndoa1" path="res://Icons/close_icon.png" id="6_veeya"]
+[ext_resource type="Script" path="res://Scripts/Album Art.gd" id="8_42swn"]
+[ext_resource type="Shader" path="res://Scenes/Gaussian Blur.gdshader" id="9_f2bmp"]
 [ext_resource type="Script" path="res://Scripts/Next Song.gd" id="10_ijvvw"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8cgg2"]
-shader = ExtResource("2_litap")
-shader_parameter/strength = 3.0
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_afa72"]
+shader = ExtResource("9_f2bmp")
+shader_parameter/blur_radius = 1.1
+shader_parameter/blur_samples = 10
 
 [sub_resource type="Animation" id="Animation_5ldhn"]
 length = 0.001
@@ -72,7 +74,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(3, 3)]
+"values": [Vector2(4.2, 4.2)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_um7oe"]
@@ -111,8 +113,7 @@ grow_vertical = 2
 script = ExtResource("1_m6ui3")
 
 [node name="AlbumGradient" type="TextureRect" parent="."]
-modulate = Color(0.831373, 1, 0.913725, 1)
-material = SubResource("ShaderMaterial_8cgg2")
+material = SubResource("ShaderMaterial_afa72")
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -128,7 +129,8 @@ grow_vertical = 2
 scale = Vector2(3, 3)
 pivot_offset = Vector2(500, 400)
 expand_mode = 1
-script = ExtResource("3_xnhf0")
+stretch_mode = 4
+script = ExtResource("3_pisbi")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AlbumGradient"]
 libraries = {
@@ -222,36 +224,25 @@ stretch_mode = 0
 z_index = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_top = -0.362
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -0.399994
-offset_bottom = 291.0
+anchor_bottom = 1.162
+offset_bottom = 0.399963
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = -8
 alignment = 1
 
-[node name="AlbumArt" type="TextureRect" parent="VBoxContainer"]
-material = SubResource("ShaderMaterial_iwpo7")
-custom_minimum_size = Vector2(0, 1000)
+[node name="Control" type="Control" parent="VBoxContainer"]
 layout_mode = 2
-expand_mode = 1
-stretch_mode = 5
+size_flags_horizontal = 3
+script = ExtResource("8_42swn")
 
-[node name="AlbumArt" type="TextureRect" parent="VBoxContainer/AlbumArt"]
+[node name="AlbumArt" type="TextureRect" parent="VBoxContainer/Control"]
 material = SubResource("ShaderMaterial_iwpo7")
-custom_minimum_size = Vector2(0, 1000)
-layout_mode = 1
-anchors_preset = 15
+layout_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 180.0
-offset_bottom = 180.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.65, 0.65)
-pivot_offset = Vector2(500, 500)
+offset_right = -1000.0
 expand_mode = 1
 stretch_mode = 5
 
@@ -261,18 +252,10 @@ layout_mode = 2
 bold = true
 speed_of_text = 40
 
-[node name="Control" type="Control" parent="VBoxContainer"]
-custom_minimum_size = Vector2(1000, 103)
-layout_mode = 2
-
-[node name="ArtistName" parent="VBoxContainer/Control" instance=ExtResource("2_xy54g")]
+[node name="ArtistName" parent="VBoxContainer" instance=ExtResource("2_xy54g")]
 modulate = Color(0.529067, 0.529067, 0.529067, 1)
 custom_minimum_size = Vector2(0, 102.89)
-layout_mode = 1
-offset_right = 0.0
-offset_bottom = 102.89
-scale = Vector2(0.8, 0.8)
-pivot_offset = Vector2(500, 51)
+layout_mode = 2
 speed_of_text = 40
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
@@ -334,4 +317,5 @@ layout_mode = 2
 texture = ExtResource("3_4g77f")
 expand_mode = 1
 
+[connection signal="draw" from="AlbumGradient" to="AlbumGradient" method="_on_draw"]
 [connection signal="animation_finished" from="AlbumGradient/AnimationPlayer" to="AlbumGradient/AnimationPlayer" method="_on_animation_finished"]

@@ -1,13 +1,15 @@
-res://settings_page.tscn
+res://Scenes/main_player.tscn
 res://Scenes/rounder.gdshader
+res://Shaders/Blur/xpass.gdshader
+res://Shaders/Blur/ypass.gdshader
 res://Scenes/Gaussian Blur.gdshader
 res://Scenes/main_player.gdshader
+res://Scenes/album_gradient.gd
+res://settings_page.tscn
 res://Pages/login_page.tscn
 res://Pages/about_window.tscn
 res://Scenes/about_window.tscn
 res://Scenes/login_view.tscn
-res://Scenes/main_player.tscn
 res://Components/scrolling_word_component.tscn
-res://Scripts/network_requests.gd
-res://Scripts/Next Song.gd
-res://Scripts/song_manager.gd
+res://Scenes/Blur Shader/xpass.tscn
+res://Scenes/Blur Shader/ypass.tscn

@@ -4,8 +4,8 @@ extends Control
 @onready var settings_window = preload("res://Pages/settings_page.tscn")
 @onready var mouse_drag_component = preload("res://Scenes/mouse_drag.tscn")
 @onready var song_title = $VBoxContainer/SongTitle
-@onready var artist_name = $VBoxContainer/Control/ArtistName
-@onready var album_art = $VBoxContainer/AlbumArt/AlbumArt
+@onready var artist_name = $VBoxContainer/ArtistName
+@onready var album_art = $VBoxContainer/Control/AlbumArt
 @onready var album_gradient = $AlbumGradient
 @onready var settings_overlay = $SettingsOverlay
 @onready var listen_on_spotify = $SettingsOverlay/ColorRect/MarginContainer2/ListenOnSpotifyButton
@@ -47,12 +47,14 @@ func _ready():
 
 	get_viewport().mouse_entered.connect(_on_mouse_enter)
 	get_viewport().mouse_exited.connect(_on_mouse_exit)
+	
 	var win_height = ApplicationStorage.get_data(ApplicationStorage.Settings.WIN_HEIGHT)
 	var win_width = ApplicationStorage.get_data(ApplicationStorage.Settings.WIN_WIDTH)
 	var win_pos_x = ApplicationStorage.get_data(ApplicationStorage.Settings.WIN_POS_X)
 	var win_pos_y = ApplicationStorage.get_data(ApplicationStorage.Settings.WIN_POS_Y)
 
 	WindowFunctions.set_up_min_window_size(get_window())
+	WindowFunctions.change_window_position(800,win_height,get_window())
 	WindowFunctions.change_window_size(win_width, win_height, get_window())
 	WindowFunctions.change_window_position(win_pos_x, win_pos_y, get_window())
 
