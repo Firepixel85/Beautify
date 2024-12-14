@@ -17,9 +17,7 @@ boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
 boot_splash/fullsize=false
 boot_splash/use_filter=false
-config/icon="res://bittify.png"
-config/macos_native_icon="res://bittify.icns"
-config/windows_native_icon="res://icon.ico"
+config/icon="res://Icons/icon.png"
 
 [autoload]
 

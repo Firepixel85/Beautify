@@ -112,6 +112,7 @@ func change_displayed_data(play_data: SongManager.PlayerData):
 			texture.set_image(data.img)
 			var gred = generate_gradient(data.img)
 			transition_art_texture(album_gradient, "texture", texture)
+			album_gradient.update_shader()
 			transition_art_texture(album_art, "texture", texture)
 
 			old_link = current_song_url
