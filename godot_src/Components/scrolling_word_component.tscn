@@ -42,6 +42,7 @@ layout_mode = 2
 theme = ExtResource("2_f8xoa")
 theme_override_fonts/font = ExtResource("2_o116t")
 theme_override_font_sizes/font_size = 56
-text = "This is a test"
+text = "
+"
 horizontal_alignment = 1
 vertical_alignment = 1

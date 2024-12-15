@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://smcxgrhe0pd7"]
+[gd_scene load_steps=30 format=3 uid="uid://smcxgrhe0pd7"]
 
 [ext_resource type="Script" path="res://Scripts/main_player.gd" id="1_m6ui3"]
 [ext_resource type="Shader" path="res://Scenes/rounder.gdshader" id="2_fbidj"]
@@ -16,11 +16,13 @@
 [ext_resource type="Script" path="res://Scripts/Album Art.gd" id="8_42swn"]
 [ext_resource type="Shader" path="res://Scenes/Gaussian Blur.gdshader" id="9_f2bmp"]
 [ext_resource type="Script" path="res://Scripts/Next Song.gd" id="10_ijvvw"]
+[ext_resource type="Script" path="res://Scripts/texture_holder.gd" id="17_ljshb"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1pbf2"]
-shader = ExtResource("9_f2bmp")
-shader_parameter/strength = 0.8
-shader_parameter/screen_texture = ExtResource("3_ynwlv")
+[sub_resource type="Gradient" id="Gradient_60cg1"]
+colors = PackedColorArray(0.117647, 0.117647, 0.117647, 1, 0.117647, 0.117647, 0.117647, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_m8tk6"]
+gradient = SubResource("Gradient_60cg1")
 
 [sub_resource type="Animation" id="Animation_5ldhn"]
 length = 0.001
@@ -39,8 +41,8 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_8r4c2"]
 resource_name = "loop"
-length = 50.0
-step = 0.1
+length = 100.0
+step = 1.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -48,7 +50,7 @@ tracks/0/path = NodePath(".:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 25, 50),
+"times": PackedFloat32Array(0, 50, 100),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [0.0, 3.14159, 6.28319]
@@ -76,6 +78,17 @@ shader_parameter/height = 1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jim48"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_05cvf"]
+shader = ExtResource("9_f2bmp")
+shader_parameter/strength = 2.8
+shader_parameter/screen_texture = ExtResource("3_ynwlv")
+
+[sub_resource type="Gradient" id="Gradient_bh5dk"]
+colors = PackedColorArray(0.117647, 0.117647, 0.117647, 1, 0.117647, 0.117647, 0.117647, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8o4bl"]
+gradient = SubResource("Gradient_bh5dk")
+
 [node name="main_player" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -91,7 +104,6 @@ script = ExtResource("1_m6ui3")
 
 [node name="AlbumGradient" type="TextureRect" parent="."]
 texture_filter = 4
-material = SubResource("ShaderMaterial_1pbf2")
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -106,7 +118,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(3, 3)
 pivot_offset = Vector2(500, 400)
-texture = ExtResource("3_ynwlv")
+texture = SubResource("GradientTexture2D_m8tk6")
 expand_mode = 1
 stretch_mode = 5
 script = ExtResource("3_pisbi")
@@ -123,7 +135,8 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.162
-offset_bottom = 0.399963
+offset_top = -50.0
+offset_bottom = -49.6
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = -8
@@ -296,6 +309,22 @@ theme_override_constants/margin_bottom = 6
 layout_mode = 2
 texture = ExtResource("3_4g77f")
 expand_mode = 1
+
+[node name="SubViewport" type="SubViewport" parent="."]
+process_mode = 3
+disable_3d = true
+size = Vector2i(1024, 1024)
+render_target_update_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="SubViewport"]
+material = SubResource("ShaderMaterial_05cvf")
+offset_right = 1024.0
+offset_bottom = 1024.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource("GradientTexture2D_8o4bl")
+expand_mode = 1
+script = ExtResource("17_ljshb")
 
 [connection signal="draw" from="AlbumGradient" to="AlbumGradient" method="_on_draw"]
 [connection signal="animation_finished" from="AlbumGradient/AnimationPlayer" to="AlbumGradient/AnimationPlayer" method="_on_animation_finished"]

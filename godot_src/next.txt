@@ -1,8 +1,0 @@
-import requests
-
-url = "https://api.spotify.com/v1/me"
-headers = {"Authorization": "Bearer BQApybwl_2U-ombNo6n0U1qQ4MsrmNbb-FEgSoYVQH24F7f9xOdaEzTXw6WmN1Qq00PlriE1GVsQF1qTZR7j7gzfSZLSsBn2FlXhb2grf5HRywzgg3Nr9LfF2pf68h2OFSoMkqlLiFt6fedmjaEZk4Y4QLtt5OK3U9vZqYFlFJbpnIZroaA-F0KufOe2ZhZOMLjkqC1cBHFd5whBfrMY"}
-
-response = requests.get(url, headers=headers)
-print(response.status_code)
-print(response.json())

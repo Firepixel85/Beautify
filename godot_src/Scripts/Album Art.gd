@@ -6,13 +6,13 @@ var past_texture = false
 
 
 func _ready() -> void:
+	await get_tree().create_timer(0.5).timeout
 	window_dim = get_window().size
 
 func _process(delta: float) -> void:
-
 	var resize_pass:bool 
 	if past_texture == null and album_art.texture != null and  resize_pass == false:
-		WindowFunctions.change_window_size(800,window_dim.y,get_window())
+		WindowFunctions.change_window_size(880,window_dim.y,get_window())
 		resize_pass = true
 		var timer = get_tree().create_timer(0.01)
 		await timer.timeout
