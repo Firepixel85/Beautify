@@ -83,6 +83,7 @@ func next_song(access_token: String):
 	currently_playing_song(access_token)
 
 func previous_song(access_token: String):
+
 	var output = []
 	if os == "MAC":
 		var term = OS.execute("/bin/bash",["-c"]+["curl --request POST   --url https://api.spotify.com/v1/me/player/previous   --header 'Authorization: Bearer "+access_token+"'"],output)
@@ -94,9 +95,12 @@ func pause_play_song(access_token: String):
 	var output = []
 	if os == "MAC":
 		if paused == false:
+			paused = true
 			var term = OS.execute("/bin/bash",["-c"]+["curl --request PUT   --url https://api.spotify.com/v1/me/player/pause   --header 'Authorization: Bearer "+access_token+"'"],output)
 		else:
+			paused = false
 			var term = OS.execute("/bin/bash",["-c"]+["curl --request PUT   --url https://api.spotify.com/v1/me/player/play   --header 'Authorization: Bearer "+access_token+"'"],output)
+
 	elif os == "WIN":
 		pass
 func get_new_access_token(refresh_token) -> Result:

@@ -1,10 +1,10 @@
+AnimationPlayer
+MarginContainer
 TextureRect
-SubViewport
 Sprite2D
+Button
+SubViewport
 Control
 HBoxContainer
-MarginContainer
 Container
-Button
-AnimationPlayer
 VBoxContainer

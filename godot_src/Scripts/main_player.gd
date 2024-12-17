@@ -6,6 +6,8 @@ extends Control
 @onready var song_title = $VBoxContainer/SongTitle
 @onready var artist_name = $VBoxContainer/ArtistName
 @onready var album_art = $VBoxContainer/Control/AlbumArt
+@onready var album_art_container: Control = $VBoxContainer/Control
+
 @onready var album_gradient = $AlbumGradient
 @onready var settings_overlay = $SettingsOverlay
 @onready var listen_on_spotify = $SettingsOverlay/ColorRect/MarginContainer2/ListenOnSpotifyButton
@@ -54,10 +56,10 @@ func _ready():
 	var win_width = ApplicationStorage.get_data(ApplicationStorage.Settings.WIN_WIDTH)
 	var win_pos_x = ApplicationStorage.get_data(ApplicationStorage.Settings.WIN_POS_X)
 	var win_pos_y = ApplicationStorage.get_data(ApplicationStorage.Settings.WIN_POS_Y)
-
+	
 	WindowFunctions.set_up_min_window_size(get_window())
 	WindowFunctions.change_window_position(800,win_height,get_window())
-	WindowFunctions.change_window_size(win_width, win_height, get_window())
+	WindowFunctions.change_window_size(win_width, win_height-56, get_window())
 	WindowFunctions.change_window_position(win_pos_x, win_pos_y, get_window())
 
 	var borderless = ApplicationStorage.get_data(ApplicationStorage.Settings.BORDERLESS)
@@ -113,9 +115,8 @@ func change_displayed_data(play_data: SongManager.PlayerData):
 			var texture = ImageTexture.new()
 			texture.set_image(data.img)
 			var gred = generate_gradient(data.img)
-			transition_art_texture(album_gradient, "texture", texture)
 			album_gradient.update_shader(texture)
-			transition_art_texture(album_art, "texture", texture)
+			album_art_container.update_texture(texture)
 
 			old_link = current_song_url
 		return

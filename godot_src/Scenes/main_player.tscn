@@ -8,14 +8,12 @@
 [ext_resource type="Script" path="res://Scenes/album_gradient.gd" id="3_pisbi"]
 [ext_resource type="Texture2D" uid="uid://cb5wx3gwcn885" path="res://Icons/icon.svg" id="3_ynwlv"]
 [ext_resource type="Script" path="res://Scenes/animation_player.gd" id="4_axodg"]
-[ext_resource type="Texture2D" uid="uid://duo7bqubruc3u" path="res://Icons/Previous.png" id="4_bwndn"]
-[ext_resource type="Texture2D" uid="uid://l6gyty3ecl7p" path="res://Icons/Pause.png" id="5_1dse8"]
 [ext_resource type="Texture2D" uid="uid://bh25cpga742jc" path="res://Icons/settings_icon.png" id="5_1ierp"]
-[ext_resource type="Texture2D" uid="uid://cq3fnagbenfhg" path="res://Icons/Next.png" id="6_egiku"]
+[ext_resource type="Texture2D" uid="uid://b6j7ro31f4phl" path="res://Icons/Deafult Album Art.png" id="6_6jkkt"]
 [ext_resource type="Texture2D" uid="uid://f8b87l1ndoa1" path="res://Icons/close_icon.png" id="6_veeya"]
 [ext_resource type="Script" path="res://Scripts/Album Art.gd" id="8_42swn"]
 [ext_resource type="Shader" path="res://Scenes/Gaussian Blur.gdshader" id="9_f2bmp"]
-[ext_resource type="Script" path="res://Scripts/Next Song.gd" id="10_ijvvw"]
+[ext_resource type="PackedScene" uid="uid://d2sjw6m5xd103" path="res://Scenes/Media Controls.tscn" id="10_3qh3r"]
 [ext_resource type="Script" path="res://Scripts/texture_holder.gd" id="17_ljshb"]
 
 [sub_resource type="Gradient" id="Gradient_60cg1"]
@@ -69,14 +67,211 @@ shader_parameter/rounded_corner_top_left = true
 shader_parameter/rounded_corner_top_right = true
 shader_parameter/rounded_corner_bottom_left = true
 shader_parameter/rounded_corner_bottom_right = true
-shader_parameter/width = 1.0
-shader_parameter/height = 1.0
+shader_parameter/width = 640.0
+shader_parameter/height = 640.0
+shader_parameter/opacity = 0.5
+shader_parameter/isInRadians = false
+shader_parameter/xRadians = null
+shader_parameter/yRadians = 0.0
+shader_parameter/zRadians = null
+shader_parameter/xDegrees = 0.0
+shader_parameter/yDegrees = 0.0
+shader_parameter/zDegrees = 0.0
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_71357"]
+[sub_resource type="Animation" id="Animation_nlyyp"]
+resource_name = "Change Song"
+length = 0.6
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/yDegrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 180, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.6)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_6jkkt")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e1lri"]
+[sub_resource type="Animation" id="Animation_pfbt7"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/yDegrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_6jkkt")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:scale:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.85, -0.075, 0, 0.075, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:scale:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.85, -0.075, 0, 0.075, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:material:shader_parameter/opacity")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.5, -0.1, 0, 0.1, 0),
+"times": PackedFloat32Array(0)
+}
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jim48"]
+[sub_resource type="Animation" id="Animation_l5ytk"]
+resource_name = "Pause"
+length = 0.2
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0.85, -0.075, 0, 0.075, 0, 0.75, -0.075, 0, 0.075, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0.85, -0.075, 0, 0.075, 0, 0.75, -0.075, 0, 0.075, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:material:shader_parameter/opacity")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.1, 0, 0.1, 0, 0.5, -0.1, 0, 0.1, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+
+[sub_resource type="Animation" id="Animation_ra0xs"]
+resource_name = "Play"
+length = 0.2
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0.75, -0.075, 0, 0.075, 0, 0.85, -0.075, 0, 0.075, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0.75, -0.075, 0, 0.075, 0, 0.85, -0.075, 0, 0.075, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:material:shader_parameter/opacity")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0.5, -0.1, 0, 0.1, 0, 1, -0.1, 0, 0.1, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_66iv8"]
+_data = {
+"Change Song": SubResource("Animation_nlyyp"),
+"Pause": SubResource("Animation_l5ytk"),
+"Play": SubResource("Animation_ra0xs"),
+"RESET": SubResource("Animation_pfbt7")
+}
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_05cvf"]
 shader = ExtResource("9_f2bmp")
@@ -152,9 +347,17 @@ material = SubResource("ShaderMaterial_iwpo7")
 layout_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -1000.0
+offset_right = -900.0
+offset_bottom = 100.0
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("6_6jkkt")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="VBoxContainer/Control/AlbumArt"]
+libraries = {
+"": SubResource("AnimationLibrary_66iv8")
+}
 
 [node name="SongTitle" parent="VBoxContainer" instance=ExtResource("2_xy54g")]
 custom_minimum_size = Vector2(0, 102.89)
@@ -175,29 +378,17 @@ layout_mode = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="Previous" parent="VBoxContainer/HBoxContainer" instance=ExtResource("10_3qh3r")]
 layout_mode = 2
-theme_override_styles/focus = SubResource("StyleBoxEmpty_71357")
-icon = ExtResource("4_bwndn")
-flat = true
-script = ExtResource("10_ijvvw")
-oparation = "previous"
+op = -1
 
-[node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="Play_Pause" parent="VBoxContainer/HBoxContainer" instance=ExtResource("10_3qh3r")]
 layout_mode = 2
-theme_override_styles/focus = SubResource("StyleBoxEmpty_e1lri")
-icon = ExtResource("5_1dse8")
-flat = true
-script = ExtResource("10_ijvvw")
-oparation = "pause_play"
 
-[node name="Button3" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="Next" parent="VBoxContainer/HBoxContainer" instance=ExtResource("10_3qh3r")]
+custom_minimum_size = Vector2(158, 0)
 layout_mode = 2
-theme_override_styles/focus = SubResource("StyleBoxEmpty_jim48")
-icon = ExtResource("6_egiku")
-flat = true
-script = ExtResource("10_ijvvw")
-oparation = "next"
+op = 1
 
 [node name="GradientBlocker" type="ColorRect" parent="."]
 layout_mode = 1

@@ -15,7 +15,6 @@ func _process(delta: float) -> void:
 
 	
 func update_shader(new_texture):
-
 	texture_holder.visible = true
 	texture_holder.material.set_shader_parameter("screen_texture",new_texture)
 	texture_renderer.set_update_mode(SubViewport.UpdateMode.UPDATE_ONCE)
